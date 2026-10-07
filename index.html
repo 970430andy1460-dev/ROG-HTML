@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROG 電競鍵盤系列展示館 | Republic of Gamers 台灣</title>
+    
+    <!-- 載入外部 CDN 資源：Tailwind CSS 框架、FontAwesome 圖示庫、Google Fonts 字型 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        /* ==========================================================================
+           Tailwind CSS 自訂主題設定 (ROG 品牌電競視覺色系擴充)
+           ========================================================================== */
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        rog: {
+                            black: '#0b0b0e',      // 主背景暗黑深色
+                            card: '#14141d',       // 卡片與區塊底色
+                            red: '#ff003c',        // ROG 標誌性電競紅
+                            redGlow: '#ff2a5f',    // 霓虹發光紅
+                            cyan: '#00f0ff',       // 賽博龐克藍綠色
+                            darkBorder: '#262636', // 暗色邊框線
+                            textMuted: '#9aa0a6'   // 次要文字顏色
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'], // 科技感標題英文字體
+                        sans: ['Noto Sans TC', 'sans-serif']   // 無襯線繁體中文內文字體
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ==========================================================================
+           全域與自訂 CSS 動效、切角幾何形狀 (ROG Clip Paths) 樣式定義
+           ========================================================================== */
+        body {
+            background-color: #0b0b0e;
+            color: #f3f4f6;
+            font-family: 'Noto Sans TC', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ROG 前衛幾何切角視覺 (Clip Paths) */
+        .rog-clip-corner {
+            clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+        }
+
+        .rog-btn-clip {
+            clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+        }
+
+        /* Hero 頂部 Banner 背景光暈漸層 */
+        .rog-hero-bg {
+            background: linear-gradient(180deg, rgba(11,11,14,0.4) 0%, rgba(11,11,14,0.95) 85%, #0b0b0e 100%),
+                        radial-gradient(circle at 70% 30%, rgba(255, 0, 60, 0.18) 0%, transparent 60%),
+                        radial-gradient(circle at 20% 70%, rgba(0, 240, 255, 0.12) 0%, transparent 50%);
+        }
+
+        /* 產品卡片懸浮邊框發光與位移動效 */
+        .rog-card-glow {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .rog-card-glow:hover {
+            box-shadow: 0 0 25px rgba(255, 0, 60, 0.3), 0 0 2px #ff003c;
+            border-color: rgba(255, 0, 60, 0.6);
+            transform: translateY(-4px);
+        }
+
+        /* Aura Sync 霓虹彩光循環動畫 */
+        .rgb-glow-cycle {
+            animation: rgbPulse 8s infinite linear;
+        }
+
+        @keyframes rgbPulse {
+            0% { filter: drop-shadow(0 0 12px rgba(255, 0, 60, 0.7)); }
+            33% { filter: drop-shadow(0 0 12px rgba(0, 240, 255, 0.7)); }
+            66% { filter: drop-shadow(0 0 12px rgba(157, 0, 255, 0.7)); }
+            100% { filter: drop-shadow(0 0 12px rgba(255, 0, 60, 0.7)); }
+        }
+
+        /* 自訂暗黑風捲軸 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0b0e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #262636;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff003c;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-rog-red selection:text-white">
+
+    <!-- ==========================================================================
+         網站頂部導覽列 (Navigation Header)
+         ========================================================================== -->
+    <header class="sticky top-0 z-40 bg-rog-black/90 backdrop-blur-md border-b border-rog-darkBorder/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- ROG 品牌標誌 (Logo & Slogan) -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 bg-rog-red flex items-center justify-center text-white rounded font-black text-xl tracking-tighter group-hover:scale-105 transition-transform duration-200 shadow-[0_0_15px_rgba(255,0,60,0.6)]">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+                <div>
+                    <span class="font-orbitron font-extrabold text-xl tracking-wider text-white block leading-none">REPUBLIC OF</span>
+                    <span class="font-orbitron font-black text-xs text-rog-red tracking-widest block mt-0.5">GAMERS</span>
+                </div>
+            </a>
+
+            <!-- 選單連結 (全螢幕顯示/行動版自動隱藏) -->
+            <nav class="hidden md:flex items-center space-x-8 font-medium text-sm">
+                <a href="#" class="text-white hover:text-rog-red transition-colors flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-rog-red"></span> 電競鍵盤全系列
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">滑鼠與鼠墊</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">耳機與音訊</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">Aura Sync 燈效同步</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">ROG 獨家軸體技術</a>
+            </nav>
+
+            <!-- 右側功能：產品比較視窗觸發按鈕 -->
+            <div class="flex items-center gap-4">
+                <button id="compareTrayBtn" onclick="toggleCompareModal()" class="relative bg-rog-card hover:bg-rog-darkBorder text-gray-200 border border-rog-darkBorder px-4 py-2 rounded flex items-center gap-2 text-sm transition-all">
+                    <i class="fa-solid fa-code-compare text-rog-red"></i>
+                    <span class="hidden sm:inline">規格比較</span>
+                    <span id="compareBadge" class="bg-rog-red text-white text-xs px-1.5 py-0.5 rounded-full font-bold hidden">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+         Hero 頂部主視覺 Banner (FOR THOSE WHO DARE)
+         ========================================================================== -->
+    <section class="relative rog-hero-bg py-16 md:py-24 border-b border-rog-darkBorder/40 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                
+                <!-- 標題與標語 -->
+                <div class="max-w-2xl text-left">
+                    <div class="inline-flex items-center gap-2 bg-rog-red/10 border border-rog-red/40 px-3 py-1 rounded text-rog-red text-xs font-bold tracking-widest mb-4">
+                        <i class="fa-solid fa-bolt"></i> FOR THOSE WHO DARE ‧ 無所畏懼 頂尖對決
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white font-orbitron uppercase leading-tight">
+                        ROG 電競鍵盤系列
+                    </h1>
+                    <p class="mt-4 text-lg md:text-xl text-gray-300 font-light leading-relaxed">
+                        精準打擊 ‧ 極速勝率 — 搭載獨家光學機械軸、ROG NX 自研軸、HFX 磁軸與 SpeedNova 超極速無線連線技術。
+                    </p>
+
+                    <!-- 特色微標籤 -->
+                    <div class="mt-6 flex flex-wrap gap-4 text-xs text-gray-400">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-check text-rog-red"></i> ROG RX 光學軸 / HFX 磁軸</span>
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-check text-rog-red"></i> SpeedNova 低延遲無線技術</span>
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-check text-rog-red"></i> Aura Sync RGB 燈效同步</span>
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-check text-rog-red"></i> 客製化熱插拔軸體支援</span>
+                    </div>
+                </div>
+
+                <!-- 旗艦產品焦點展示區 (Featured Product Card) -->
+                <div class="relative w-full md:w-1/2 flex justify-center">
+                    <div class="relative w-full max-w-md bg-gradient-to-br from-rog-card to-rog-black p-6 rounded-2xl border border-rog-darkBorder shadow-2xl rog-clip-corner">
+                        <div class="absolute -top-3 -right-3 bg-rog-red text-white text-xs font-bold px-3 py-1 uppercase tracking-wider rounded font-orbitron">FLAGSHIP 2026</div>
+                        <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80" alt="ROG Azoth Extreme" class="w-full h-48 object-cover rounded-lg mb-4 opacity-90 hover:opacity-100 transition-opacity">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <span class="text-xs text-rog-cyan font-orbitron">年度旗艦首選</span>
+                                <h3 class="text-xl font-bold text-white">ROG Azoth Extreme 75%</h3>
+                                <p class="text-xs text-gray-400 mt-1">全彩 OLED 觸控螢幕 / 碳纖維定位板 / 8000Hz</p>
+                            </div>
+                            <span class="text-rog-red font-orbitron font-black text-xl">NT$ 16,990</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         主要展示與動態篩選區域 (Main Interactive Filtering Area)
+         ========================================================================== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
+        
+        <!-- 分類頁籤切換按鈕 (Category Tabs) -->
+        <div class="flex overflow-x-auto gap-2 pb-4 border-b border-rog-darkBorder/60 no-scrollbar mb-8">
+            <button onclick="setCategoryTab('all')" id="tab-all" class="category-tab px-6 py-3 rounded-lg font-bold text-sm tracking-wide whitespace-nowrap bg-rog-red text-white shadow-[0_0_12px_rgba(255,0,60,0.4)] transition-all">
+                全系列 All Keyboards
+            </button>
+            <button onclick="setCategoryTab('flagship')" id="tab-flagship" class="category-tab px-6 py-3 rounded-lg font-bold text-sm tracking-wide whitespace-nowrap bg-rog-card hover:bg-rog-darkBorder text-gray-300 transition-all">
+                👑 旗艦首選 Flagship
+            </button>
+            <button onclick="setCategoryTab('wireless')" id="tab-wireless" class="category-tab px-6 py-3 rounded-lg font-bold text-sm tracking-wide whitespace-nowrap bg-rog-card hover:bg-rog-darkBorder text-gray-300 transition-all">
+                📡 無線雙模/三模
+            </button>
+            <button onclick="setCategoryTab('compact')" id="tab-compact" class="category-tab px-6 py-3 rounded-lg font-bold text-sm tracking-wide whitespace-nowrap bg-rog-card hover:bg-rog-darkBorder text-gray-300 transition-all">
+                ⚡ 60% / 75% 緊湊配置
+            </button>
+            <button onclick="setCategoryTab('magnetic')" id="tab-magnetic" class="category-tab px-6 py-3 rounded-lg font-bold text-sm tracking-wide whitespace-nowrap bg-rog-card hover:bg-rog-darkBorder text-gray-300 transition-all">
+                🧲 磁軸/極速觸發版
+            </button>
+        </div>
+
+        <!-- 複合式控制列：搜尋、軸體篩選、尺寸篩選、排序 -->
+        <div class="bg-rog-card/80 border border-rog-darkBorder rounded-xl p-5 mb-8 backdrop-blur-md">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                <!-- 1. 關鍵字即時搜尋列 -->
+                <div class="relative">
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1.5">搜尋鍵盤型號或技術</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                        <input type="text" id="searchInput" oninput="applyFilters()" placeholder="例如：Azoth、RX 光軸、Rapid Trigger..." class="w-full bg-rog-black border border-rog-darkBorder rounded-lg pl-9 pr-4 py-2 text-sm text-white focus:outline-none focus:border-rog-red transition-colors">
+                    </div>
+                </div>
+
+                <!-- 2. 軸體種類下拉選單 -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1.5">軸體技術 (Switch Type)</label>
+                    <select id="switchFilter" onchange="applyFilters()" class="w-full bg-rog-black border border-rog-darkBorder rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-rog-red transition-colors">
+                        <option value="all">全部軸體 All Switches</option>
+                        <option value="rx">ROG RX 光學軸 (中心發光)</option>
+                        <option value="nx">ROG NX 機械軸 (熱插拔客製化)</option>
+                        <option value="magnetic">ROG HFX 磁軸 ( Rapid Trigger )</option>
+                    </select>
+                </div>
+
+                <!-- 3. 鍵盤尺寸/配置下拉選單 -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1.5">鍵盤尺寸 (Layout)</label>
+                    <select id="layoutFilter" onchange="applyFilters()" class="w-full bg-rog-black border border-rog-darkBorder rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-rog-red transition-colors">
+                        <option value="all">全部尺寸 All Sizes</option>
+                        <option value="100%">100% 全尺寸 (Full Size)</option>
+                        <option value="96%">96% 緊湊全尺寸</option>
+                        <option value="75%">75% 廣受好評配置</option>
+                        <option value="65%">65% / 60% 極致攜帶型</option>
+                    </select>
+                </div>
+
+                <!-- 4. 排序選擇 -->
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1.5">排序方式 (Sort By)</label>
+                    <select id="sortSelect" onchange="applyFilters()" class="w-full bg-rog-black border border-rog-darkBorder rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-rog-red transition-colors">
+                        <option value="featured">ROG 推薦 (Featured)</option>
+                        <option value="price-low">價格：由低到高</option>
+                        <option value="price-high">價格：由高到低</option>
+                        <option value="rating">玩家評分最高</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- 當前生效的篩選條件標籤列 -->
+            <div id="filterTagsContainer" class="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-rog-darkBorder/50 text-xs text-gray-400">
+                <span class="font-bold text-gray-300">已套用條件：</span>
+                <span id="activeFiltersList" class="flex flex-wrap gap-2"></span>
+                <button onclick="resetFilters()" class="text-rog-red hover:underline ml-auto font-bold flex items-center gap-1">
+                    <i class="fa-solid fa-rotate-left"></i> 重設所有篩選
+                </button>
+            </div>
+        </div>
+
+        <!-- 搜尋結果數量統計 -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="text-sm text-gray-400">
+                展示 <span id="productCount" class="font-bold text-white font-orbitron">0</span> 款 ROG 電競鍵盤產品
+            </div>
+        </div>
+
+        <!-- 產品動態卡片渲染網格 (Product Grid Container) -->
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 由 JavaScript 根據資料陣列動態生成內容 -->
+        </div>
+
+        <!-- 無符合條件時顯示的空狀態提示 -->
+        <div id="emptyState" class="hidden text-center py-16 bg-rog-card/40 rounded-2xl border border-dashed border-rog-darkBorder my-8">
+            <i class="fa-solid fa-keyboard text-5xl text-gray-600 mb-4"></i>
+            <h3 class="text-xl font-bold text-white mb-2">未找到符合條件的 ROG 鍵盤</h3>
+            <p class="text-gray-400 text-sm mb-6">嘗試調整您的搜尋關鍵字或重設篩選條件</p>
+            <button onclick="resetFilters()" class="bg-rog-red hover:bg-rog-redGlow text-white px-6 py-2 rounded-md font-bold text-sm transition-all">
+                重設所有條件
+            </button>
+        </div>
+
+    </main>
+
+    <!-- ==========================================================================
+         網站頁尾 (Footer Section)
+         ========================================================================== -->
+    <footer class="bg-rog-black border-t border-rog-darkBorder mt-20 text-gray-400 text-sm py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <span class="font-orbitron font-black text-lg text-white block mb-3">ASUS ROG TAIWAN</span>
+                    <p class="text-xs text-gray-500 leading-relaxed">
+                        Republic of Gamers (ROG) 專為硬派玩家打造極致電競裝備，結合前瞻技術與頂尖工藝，極限突破超越想像。
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-3 text-xs uppercase tracking-wider">鍵盤獨家技術</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#" class="hover:text-rog-red transition-colors">ROG RX 光學機械軸</a></li>
+                        <li><a href="#" class="hover:text-rog-red transition-colors">ROG SpeedNova 無線技術</a></li>
+                        <li><a href="#" class="hover:text-rog-red transition-colors">AniMe Matrix™ LED 顯示燈</a></li>
+                        <li><a href="#" class="hover:text-rog-red transition-colors">Aura Sync RGB 燈光控制</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-3 text-xs uppercase tracking-wider">服務與支援</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#" class="hover:text-rog-red transition-colors">Armoury Crate 軟體下載</a></li>
+                        <li><a href="#" class="hover:text-rog-red transition-colors">保固條款與維修據點</a></li>
+                        <li><a href="#" class="hover:text-rog-red transition-colors">官方社群與 Discord</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-3 text-xs uppercase tracking-wider">關注 ROG 台灣</h4>
+                    <div class="flex gap-4 text-lg">
+                        <a href="#" class="w-9 h-9 rounded bg-rog-card flex items-center justify-center text-gray-300 hover:bg-rog-red hover:text-white transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-9 h-9 rounded bg-rog-card flex items-center justify-center text-gray-300 hover:bg-rog-red hover:text-white transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="w-9 h-9 rounded bg-rog-card flex items-center justify-center text-gray-300 hover:bg-rog-red hover:text-white transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded bg-rog-card flex items-center justify-center text-gray-300 hover:bg-rog-red hover:text-white transition-colors"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-rog-darkBorder/40 pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 gap-4">
+                <p>© 2026 ASUSTeK Computer Inc. 保留所有權利。本網頁為 ROG 產品展示體驗館。</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-gray-400">隱私權政策</a>
+                    <a href="#" class="hover:text-gray-400">使用條款</a>
+                    <a href="#" class="hover:text-gray-400">台灣繁體中文</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+         彈出視窗：快速預覽 Modal (含 Web Audio 音效試聽 & Aura Sync 燈效模擬)
+         ========================================================================== -->
+    <div id="quickViewModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-rog-card border border-rog-darkBorder rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl rog-clip-corner">
+            <!-- 關閉按鈕 -->
+            <button onclick="closeQuickView()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl z-10 w-8 h-8 flex items-center justify-center rounded-full bg-rog-black/60">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 左欄：燈效模擬與產品圖片 -->
+                <div class="flex flex-col items-center justify-center bg-rog-black p-6 rounded-xl border border-rog-darkBorder/60 relative">
+                    <div id="modalRgbPreview" class="w-full h-48 rounded-lg mb-4 flex items-center justify-center relative overflow-hidden bg-cover bg-center transition-all duration-500" style="background-image: url('https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80')">
+                        <div id="rgbGlowOverlay" class="absolute inset-0 bg-rog-red/20 pointer-events-none transition-colors duration-300"></div>
+                        <span id="badgeModal" class="absolute top-2 left-2 bg-rog-red text-white text-[10px] font-bold px-2 py-0.5 rounded font-orbitron">FLAGSHIP</span>
+                    </div>
+
+                    <!-- 互動式 Aura Sync RGB 燈光切換面板 -->
+                    <div class="w-full mt-2">
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Aura Sync 燈效即時模擬：</label>
+                        <div class="grid grid-cols-4 gap-2">
+                            <button onclick="setRgbEffect('static-red')" class="px-2 py-1 bg-rog-darkBorder hover:bg-rog-red/40 text-xs rounded text-white border border-rog-red/50">熱血紅</button>
+                            <button onclick="setRgbEffect('cyan-glow')" class="px-2 py-1 bg-rog-darkBorder hover:bg-rog-cyan/40 text-xs rounded text-white border border-rog-cyan/50">電競青</button>
+                            <button onclick="setRgbEffect('rgb-cycle')" class="px-2 py-1 bg-rog-darkBorder hover:bg-purple-500/40 text-xs rounded text-white border border-purple-500/50">彩虹循環</button>
+                            <button onclick="setRgbEffect('off')" class="px-2 py-1 bg-rog-darkBorder text-xs rounded text-gray-400">關閉燈效</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右欄：詳細規格與 Web Audio 音效模擬引擎 -->
+                <div class="flex flex-col justify-between">
+                    <div>
+                        <span id="modalCategory" class="text-xs font-bold text-rog-cyan uppercase tracking-wider font-orbitron">Flagship Keyboard</span>
+                        <h2 id="modalTitle" class="text-2xl font-bold text-white mt-1 mb-2">ROG Keyboard Name</h2>
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="text-yellow-400 text-xs flex gap-0.5" id="modalRatingStars"></div>
+                            <span id="modalRating" class="text-xs text-gray-400">4.9 (42 篇評價)</span>
+                        </div>
+                        <p id="modalDesc" class="text-sm text-gray-300 mb-4 leading-relaxed">產品詳細簡介與獨家技術描述...</p>
+                        
+                        <!-- 核心規格快覽 -->
+                        <div class="bg-rog-black/60 p-3 rounded-lg border border-rog-darkBorder/40 mb-4 space-y-2 text-xs">
+                            <div class="flex justify-between"><span class="text-gray-400">軸體 (Switch):</span><span id="modalSwitch" class="font-bold text-white">ROG RX</span></div>
+                            <div class="flex justify-between"><span class="text-gray-400">連線方式 (Conn):</span><span id="modalConn" class="font-bold text-white">三模 Tri-Mode</span></div>
+                            <div class="flex justify-between"><span class="text-gray-400">配置 (Layout):</span><span id="modalLayout" class="font-bold text-white">75%</span></div>
+                            <div class="flex justify-between"><span class="text-gray-400">熱插拔 (Hot-Swap):</span><span id="modalHotswap" class="font-bold text-white">支援</span></div>
+                        </div>
+
+                        <!-- Web Audio API 音效模擬按鈕 -->
+                        <div class="mb-6 bg-rog-darkBorder/30 p-3 rounded-lg border border-rog-darkBorder/60">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold text-gray-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-volume-high text-rog-red"></i> 軸體敲擊音效試聽 (Audio Synthesizer)
+                                </span>
+                            </div>
+                            <button onclick="playSwitchSound()" class="w-full bg-rog-darkBorder hover:bg-rog-red text-white py-2 px-3 rounded text-xs font-bold transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-play"></i> 點擊試聽軸體敲擊聲 (Thock/Click)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 底部購買與比較操作區 -->
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs text-gray-400">建議售價 (MSRP)</span>
+                            <span id="modalPrice" class="text-2xl font-black font-orbitron text-rog-red">NT$ 0</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button id="modalCompareBtn" onclick="" class="bg-rog-darkBorder hover:bg-gray-700 text-white font-bold py-2.5 rounded-lg text-sm transition-colors">
+                                <i class="fa-solid fa-plus mr-1"></i> 加入比較
+                            </button>
+                            <a href="https://rog.asus.com/tw/" target="_blank" class="bg-rog-red hover:bg-rog-redGlow text-white font-bold py-2.5 rounded-lg text-sm text-center transition-all shadow-[0_0_10px_rgba(255,0,60,0.5)]">
+                                官方通路購買
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 彈出視窗：規格對比 Modal (Comparison Modal) -->
+    <div id="compareModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-rog-card border border-rog-darkBorder rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
+            <div class="flex justify-between items-center mb-6 pb-4 border-b border-rog-darkBorder">
+                <div>
+                    <h2 class="text-2xl font-black font-orbitron text-white">ROG 電競鍵盤規格比對 (Comparison)</h2>
+                    <p class="text-xs text-gray-400 mt-1">最多可同時選擇 3 款鍵盤進行跨型號詳細規格對比</p>
+                </div>
+                <button onclick="toggleCompareModal()" class="text-gray-400 hover:text-white text-2xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- 對比表格渲染區域 -->
+            <div id="compareContent" class="overflow-x-auto">
+                <!-- 由 JavaScript 自動計算動態表格內容 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         JavaScript 資料層與系統核心邏輯 (Data Layer & Core Logic)
+         ========================================================================== -->
+    <script>
+        /* --------------------------------------------------------------------------
+           1. 產品資料庫 (ROG Keyboards Data Array)
+           完整包含 ROG 台灣官網經典鍵盤產品資訊與規格標籤
+           -------------------------------------------------------------------------- */
+        const products = [
+            {
+                id: 'azoth-extreme',
+                name: 'ROG Azoth Extreme',
+                category: 'flagship',
+                switchType: 'nx',
+                switchName: 'ROG NX 機械軸 (預潤版)',
+                layout: '75%',
+                connectivity: '三模 (SpeedNova 2.4G / 藍牙 / 有線)',
+                price: 16990,
+                rating: 5.0,
+                reviews: 58,
+                hotSwap: true,
+                badge: '極致旗艦',
+                image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80',
+                tags: ['Full-Color OLED', '碳纖維定位板', '8000Hz 回報率', '矽膠墊減震'],
+                desc: 'ROG 旗艦級 75% 客製化電競機械鍵盤，配備全彩 OLED 觸控螢幕、三向控制旋鈕與碳纖維定位板。'
+            },
+            {
+                id: 'falchion-ace-hfx',
+                name: 'ROG Falchion Ace HFX',
+                category: 'magnetic',
+                switchType: 'magnetic',
+                switchName: 'ROG HFX 磁軸 (可調觸發)',
+                layout: '65%',
+                connectivity: '雙 Type-C 有線連線',
+                price: 6490,
+                rating: 4.8,
+                reviews: 32,
+                hotSwap: false,
+                badge: '新品上市',
+                image: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=600&q=80',
+                tags: ['Rapid Trigger', '8000Hz Polling', '觸控板控制', '五層消音結構'],
+                desc: '專為 FPS 打造的 65% 磁軸電競鍵盤，支援 Rapid Trigger 極速重置與 0.1-4.0mm 自訂觸發行程。'
+            },
+            {
+                id: 'strix-scope-ii-96',
+                name: 'ROG Strix Scope II 96 Wireless',
+                category: 'wireless',
+                switchType: 'nx',
+                switchName: 'ROG NX Snow / Storm 軸',
+                layout: '96%',
+                connectivity: '三模 (2.4GHz / 藍牙 / 有線)',
+                price: 5490,
+                rating: 4.9,
+                reviews: 94,
+                hotSwap: true,
+                badge: '熱銷爆款',
+                image: 'https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=600&q=80',
+                tags: ['96% 緊湊全尺寸', '多功能滾輪', '熱插拔軸體', '減震吸音泡綿'],
+                desc: '保持全尺寸數字鍵區的 96% 精簡佈局，擁有熱插拔軸體與低延遲 SpeedNova 無線連線能力。'
+            },
+            {
+                id: 'claymore-ii',
+                name: 'ROG Claymore II',
+                category: 'flagship',
+                switchType: 'rx',
+                switchName: 'ROG RX 光學機械軸',
+                layout: '100%',
+                connectivity: '2.4GHz 無線 / 有線',
+                price: 7290,
+                rating: 4.7,
+                reviews: 120,
+                hotSwap: false,
+                badge: '可拆卸數字鍵',
+                image: 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&w=600&q=80',
+                tags: ['分離式數字鍵盤', 'RX 光軸', '磁吸手托', '快充技術'],
+                desc: '配備獨家 RX 光學機械軸，首創可拆卸式數字鍵盤，可任意安裝於主鍵盤左側或右側。'
+            },
+            {
+                id: 'azoth-75',
+                name: 'ROG Azoth',
+                category: 'compact',
+                switchType: 'nx',
+                switchName: 'ROG NX 機械軸',
+                layout: '75%',
+                connectivity: '三模 (SpeedNova 2.4G / 藍牙 / 有線)',
+                price: 7490,
+                rating: 4.9,
+                reviews: 210,
+                hotSwap: true,
+                badge: '客製首選',
+                image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80',
+                tags: ['OLED 顯示器', 'Gasket 結構', 'DIY 潤軸套組', '熱插拔'],
+                desc: '廣受客製化玩家好評的 75% 機械鍵盤，採用 Gasket 掛載結構與 2 吋 OLED 多功能顯示面板。'
+            },
+            {
+                id: 'strix-scope-rx',
+                name: 'ROG Strix Scope RX',
+                category: 'flagship',
+                switchType: 'rx',
+                switchName: 'ROG RX 紅軸 / 青軸',
+                layout: '100%',
+                connectivity: 'USB 2.0 有線',
+                price: 3190,
+                rating: 4.8,
+                reviews: 310,
+                hotSwap: false,
+                badge: '經典防水',
+                image: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=600&q=80',
+                tags: ['IP57 防水防塵', 'ROG RX 光軸', '加寬 Ctrl 鍵', '鋁合金頂蓋'],
+                desc: '搭載首款 ROG RX 光學機械軸，提供中心發光與穩定無晃動的敲擊手感，具備 IP57 防護等級。'
+            },
+            {
+                id: 'falchion-rx-low-profile',
+                name: 'ROG Falchion RX Low Profile',
+                category: 'compact',
+                switchType: 'rx',
+                switchName: 'ROG RX 矮軸光軸',
+                layout: '65%',
+                connectivity: '三模 (SpeedNova 2.4G / 藍牙 / 有線)',
+                price: 5490,
+                rating: 4.8,
+                reviews: 45,
+                hotSwap: false,
+                badge: '超薄可攜',
+                image: 'https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=600&q=80',
+                tags: ['超薄時尚', '觸控面板', '雙層消音綿', '鍵盤保護蓋'],
+                desc: '結合 65% 配置與精緻矮軸光軸，兼具時尚輕薄設計與極致迅速的回饋體驗。'
+            },
+            {
+                id: 'strix-scope-ii-rx',
+                name: 'ROG Strix Scope II RX',
+                category: 'flagship',
+                switchType: 'rx',
+                switchName: 'ROG RX 光學軸',
+                layout: '100%',
+                connectivity: 'USB 有線',
+                price: 3990,
+                rating: 4.7,
+                reviews: 67,
+                hotSwap: false,
+                badge: '靜音高傳真',
+                image: 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&w=600&q=80',
+                tags: ['隔音泡綿', '快捷多媒體鍵', 'PBT 雙色鍵帽', '快捷巨集'],
+                desc: '專為 FPS 玩家設計，配備預潤 RX 光學軸體與獨家消音結構，提供絕佳打字聲音與打擊精準度。'
+            }
+        ];
+
+        /* --------------------------------------------------------------------------
+           2. 全域狀態變數 (Global Application States)
+           -------------------------------------------------------------------------- */
+        let currentCategory = 'all';  // 當前選取的分類頁籤
+        let compareList = [];         // 規格比較清單 (最多 3 項)
+        let currentActiveProduct = null; // 當前開啟快覽 Modal 的產品對象
+
+        /* --------------------------------------------------------------------------
+           3. 頁面初始化 (DOM Loaded Initialization)
+           -------------------------------------------------------------------------- */
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts();      // 首次渲染產品列表
+            updateCompareBadge(); // 更新比較數量徽章
+        });
+
+        /* --------------------------------------------------------------------------
+           4. 分類頁籤與動態篩選核心邏輯 (Filter Logic)
+           -------------------------------------------------------------------------- */
+        function setCategoryTab(category) {
+            currentCategory = category;
+            
+            // 更新頁籤 UI 高亮狀態
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('bg-rog-red', 'text-white', 'shadow-[0_0_12px_rgba(255,0,60,0.4)]');
+                tab.classList.add('bg-rog-card', 'text-gray-300');
+            });
+
+            const activeTab = document.getElementById(`tab-${category}`);
+            if (activeTab) {
+                activeTab.classList.remove('bg-rog-card', 'text-gray-300');
+                activeTab.classList.add('bg-rog-red', 'text-white', 'shadow-[0_0_12px_rgba(255,0,60,0.4)]');
+            }
+
+            applyFilters();
+        }
+
+        // 綜合條件多重篩選算子
+        function applyFilters() {
+            const searchValue = document.getElementById('searchInput').value.toLowerCase().trim();
+            const switchValue = document.getElementById('switchFilter').value;
+            const layoutValue = document.getElementById('layoutFilter').value;
+            const sortValue = document.getElementById('sortSelect').value;
+
+            // 執行多重條件過濾
+            let filtered = products.filter(item => {
+                // 1. 頁籤分類比對
+                if (currentCategory !== 'all' && item.category !== currentCategory) return false;
+
+                // 2. 軸體類型比對
+                if (switchValue !== 'all' && item.switchType !== switchValue) return false;
+
+                // 3. 鍵盤尺寸配置比對
+                if (layoutValue !== 'all') {
+                    if (layoutValue === '65%' && !(item.layout === '65%' || item.layout === '60%')) return false;
+                    if (layoutValue !== '65%' && item.layout !== layoutValue) return false;
+                }
+
+                // 4. 關鍵字模糊比對 (名稱、描述、標籤)
+                if (searchValue) {
+                    const matchName = item.name.toLowerCase().includes(searchValue);
+                    const matchDesc = item.desc.toLowerCase().includes(searchValue);
+                    const matchTags = item.tags.some(t => t.toLowerCase().includes(searchValue));
+                    if (!matchName && !matchDesc && !matchTags) return false;
+                }
+
+                return true;
+            });
+
+            // 執行產品排序邏輯
+            if (sortValue === 'price-low') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortValue === 'price-high') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortValue === 'rating') {
+                filtered.sort((a, b) => b.rating - a.rating);
+            }
+
+            renderProducts(filtered);       // 重新渲染過濾後的產品列表
+            updateActiveFilterTags();      // 更新過濾條件提示標籤
+        }
+
+        // 更新已選過濾條件的文字標籤
+        function updateActiveFilterTags() {
+            const container = document.getElementById('activeFiltersList');
+            container.innerHTML = '';
+
+            const activeSwitch = document.getElementById('switchFilter').value;
+            const activeLayout = document.getElementById('layoutFilter').value;
+            const searchVal = document.getElementById('searchInput').value;
+
+            const tags = [];
+            if (currentCategory !== 'all') tags.push(`分類: ${currentCategory}`);
+            if (activeSwitch !== 'all') tags.push(`軸體: ${activeSwitch.toUpperCase()}`);
+            if (activeLayout !== 'all') tags.push(`配置: ${activeLayout}`);
+            if (searchVal) tags.push(`關鍵字: "${searchVal}"`);
+
+            if (tags.length === 0) {
+                container.innerHTML = '<span class="text-gray-500 italic">無（展示全系列）</span>';
+                return;
+            }
+
+            tags.forEach(text => {
+                const tagEl = document.createElement('span');
+                tagEl.className = 'bg-rog-darkBorder text-gray-200 px-2.5 py-0.5 rounded-full flex items-center gap-1 border border-rog-darkBorder';
+                tagEl.innerHTML = `${text}`;
+                container.appendChild(tagEl);
+            });
+        }
+
+        // 重設所有過濾條件
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('switchFilter').value = 'all';
+            document.getElementById('layoutFilter').value = 'all';
+            document.getElementById('sortSelect').value = 'featured';
+            setCategoryTab('all');
+        }
+
+        /* --------------------------------------------------------------------------
+           5. 產品動態卡片 DOM 渲染邏輯 (Product Rendering)
+           -------------------------------------------------------------------------- */
+        function renderProducts(itemsToRender = products) {
+            const grid = document.getElementById('productGrid');
+            const emptyState = document.getElementById('emptyState');
+            const countEl = document.getElementById('productCount');
+
+            countEl.textContent = itemsToRender.length;
+
+            if (itemsToRender.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = itemsToRender.map(item => {
+                const isCompared = compareList.some(c => c.id === item.id);
+                return `
+                <div class="bg-rog-card border border-rog-darkBorder rounded-xl overflow-hidden rog-card-glow flex flex-col justify-between relative group">
+                    <div>
+                        <!-- 卡片頂部：徽章與圖片 -->
+                        <div class="relative h-48 bg-rog-black overflow-hidden flex items-center justify-center p-4">
+                            <span class="absolute top-3 left-3 bg-rog-red text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase font-orbitron z-10">
+                                ${item.badge}
+                            </span>
+                            <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100">
+                            <div class="absolute inset-0 bg-gradient-to-t from-rog-card via-transparent to-transparent opacity-80"></div>
+                        </div>
+
+                        <!-- 卡片內容：名稱、評分、簡介 -->
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-xs font-bold text-rog-cyan uppercase tracking-wider font-orbitron">${item.layout} Layout</span>
+                                <div class="flex items-center text-yellow-400 text-xs gap-1">
+                                    <i class="fa-solid fa-star"></i>
+                                    <span class="font-bold text-gray-200">${item.rating}</span>
+                                    <span class="text-gray-500">(${item.reviews})</span>
+                                </div>
+                            </div>
+
+                            <h3 class="text-lg font-bold text-white mb-2 line-clamp-1 group-hover:text-rog-red transition-colors">${item.name}</h3>
+                            <p class="text-xs text-gray-400 mb-4 line-clamp-2 leading-relaxed">${item.desc}</p>
+
+                            <!-- 特色標籤群 -->
+                            <div class="flex flex-wrap gap-1.5 mb-4">
+                                ${item.tags.map(tag => `<span class="bg-rog-black/80 text-gray-300 text-[10px] px-2 py-0.5 rounded border border-rog-darkBorder/60">${tag}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 卡片底部：價格與操作按鈕 -->
+                    <div class="p-5 pt-0 border-t border-rog-darkBorder/30 mt-auto">
+                        <div class="flex justify-between items-end my-3">
+                            <span class="text-[11px] text-gray-400 block">建議售價</span>
+                            <span class="text-xl font-black font-orbitron text-rog-red">NT$ ${item.price.toLocaleString()}</span>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="openQuickView('${item.id}')" class="bg-rog-darkBorder hover:bg-gray-700 text-white font-bold py-2 rounded text-xs transition-colors">
+                                查看詳情
+                            </button>
+                            <button onclick="toggleCompare('${item.id}')" class="${isCompared ? 'bg-rog-red text-white' : 'bg-rog-black hover:bg-rog-darkBorder text-gray-300 border border-rog-darkBorder'} font-bold py-2 rounded text-xs transition-colors flex items-center justify-center gap-1">
+                                <i class="fa-solid ${isCompared ? 'fa-check' : 'fa-plus'}"></i>
+                                ${isCompared ? '已加入比較' : '加入比較'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        /* --------------------------------------------------------------------------
+           6. Web Audio API 原生合成聲學音效引擎 (Switch Sound Synthesizer)
+           免載入外部音效檔，利用音訊振盪器合成聲學鍵盤觸底 (Thock/Click) 聲
+           -------------------------------------------------------------------------- */
+        function playSwitchSound() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                const ctx = new AudioContext();
+                
+                // 1. 高頻觸發聲音 (Click Transient)
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.05);
+                
+                gain.gain.setValueAtTime(0.5, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05);
+                
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.start();
+                osc.stop(ctx.currentTime + 0.05);
+
+                // 2. 低頻觸底重音 (Bottom-Out Thock)
+                setTimeout(() => {
+                    const thockOsc = ctx.createOscillator();
+                    const thockGain = ctx.createGain();
+                    
+                    thockOsc.type = 'triangle';
+                    thockOsc.frequency.setValueAtTime(200, ctx.currentTime);
+                    thockOsc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.08);
+                    
+                    thockGain.gain.setValueAtTime(0.6, ctx.currentTime);
+                    thockGain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+                    
+                    thockOsc.connect(thockGain);
+                    thockGain.connect(ctx.destination);
+                    
+                    thockOsc.start();
+                    thockOsc.stop(ctx.currentTime + 0.08);
+                }, 15);
+
+            } catch (e) {
+                console.log("Web Audio API 未獲得使用者互動授權或不支援。");
+            }
+        }
+
+        /* --------------------------------------------------------------------------
+           7. 產品快覽 Modal 與 Aura Sync 燈效模擬控制
+           -------------------------------------------------------------------------- */
+        function openQuickView(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            currentActiveProduct = product;
+            document.getElementById('modalTitle').textContent = product.name;
+            document.getElementById('modalCategory').textContent = `${product.layout} Layout Gaming Keyboard`;
+            document.getElementById('modalDesc').textContent = product.desc;
+            document.getElementById('modalSwitch').textContent = product.switchName;
+            document.getElementById('modalConn').textContent = product.connectivity;
+            document.getElementById('modalLayout').textContent = product.layout;
+            document.getElementById('modalHotswap').textContent = product.hotSwap ? '支援 (Hot-Swappable)' : '不支援';
+            document.getElementById('modalPrice').textContent = `NT$ ${product.price.toLocaleString()}`;
+            document.getElementById('modalRating').textContent = `${product.rating} (${product.reviews} 篇評價)`;
+            document.getElementById('modalRgbPreview').style.backgroundImage = `url('${product.image}')`;
+            document.getElementById('badgeModal').textContent = product.badge;
+
+            // 動態星星渲染
+            const starsContainer = document.getElementById('modalRatingStars');
+            starsContainer.innerHTML = '<i class="fa-solid fa-star"></i>'.repeat(Math.floor(product.rating));
+
+            // 更新 Modal 內的比較按鈕狀態
+            const compBtn = document.getElementById('modalCompareBtn');
+            const isCompared = compareList.some(c => c.id === product.id);
+            compBtn.innerHTML = `<i class="fa-solid ${isCompared ? 'fa-check' : 'fa-plus'} mr-1"></i> ${isCompared ? '已在比較清單' : '加入比較'}`;
+            compBtn.onclick = () => {
+                toggleCompare(product.id);
+                openQuickView(product.id);
+            };
+
+            document.getElementById('quickViewModal').classList.remove('hidden');
+        }
+
+        function closeQuickView() {
+            document.getElementById('quickViewModal').classList.add('hidden');
+        }
+
+        // Aura Sync 燈效模擬轉換功能
+        function setRgbEffect(effect) {
+            const overlay = document.getElementById('rgbGlowOverlay');
+            overlay.className = "absolute inset-0 pointer-events-none transition-all duration-300 ";
+
+            if (effect === 'static-red') {
+                overlay.className += "bg-rog-red/30 shadow-[inset_0_0_30px_rgba(255,0,60,0.8)]";
+            } else if (effect === 'cyan-glow') {
+                overlay.className += "bg-rog-cyan/30 shadow-[inset_0_0_30px_rgba(0,240,255,0.8)]";
+            } else if (effect === 'rgb-cycle') {
+                overlay.className += "rgb-glow-cycle bg-purple-500/20";
+            } else {
+                overlay.className += "bg-transparent";
+            }
+        }
+
+        /* --------------------------------------------------------------------------
+           8. 多產品跨型號規格比較系統 (Product Comparison Engine)
+           -------------------------------------------------------------------------- */
+        function toggleCompare(id) {
+            const index = compareList.findIndex(item => item.id === id);
+            if (index >= 0) {
+                compareList.splice(index, 1);
+            } else {
+                if (compareList.length >= 3) {
+                    alert('最多僅能同時比較 3 款鍵盤產品！');
+                    return;
+                }
+                const p = products.find(item => item.id === id);
+                if (p) compareList.push(p);
+            }
+            updateCompareBadge();
+            applyFilters();
+        }
+
+        function updateCompareBadge() {
+            const badge = document.getElementById('compareBadge');
+            badge.textContent = compareList.length;
+            if (compareList.length > 0) {
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function toggleCompareModal() {
+            const modal = document.getElementById('compareModal');
+            if (modal.classList.contains('hidden')) {
+                renderCompareTable();
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        // 渲染比對表格內容
+        function renderCompareTable() {
+            const container = document.getElementById('compareContent');
+            if (compareList.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-gray-400">
+                        <i class="fa-solid fa-code-compare text-4xl mb-3 text-gray-600"></i>
+                        <p>目前尚未選擇任何比較產品，請在鍵盤卡片點擊「加入比較」。</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="border-b border-rog-darkBorder">
+                            <th class="p-3 bg-rog-black/60 text-gray-400 w-1/4">規格項目</th>
+                            ${compareList.map(p => `
+                                <th class="p-3 bg-rog-black text-white w-1/4">
+                                    <div class="flex flex-col items-center text-center">
+                                        <img src="${p.image}" class="w-24 h-16 object-cover rounded mb-2">
+                                        <span class="font-bold text-sm leading-tight">${p.name}</span>
+                                        <button onclick="toggleCompare('${p.id}'); renderCompareTable();" class="text-xs text-rog-red hover:underline mt-2">
+                                            <i class="fa-solid fa-trash-can"></i> 移除
+                                        </button>
+                                    </div>
+                                </th>
+                            `).join('')}
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-rog-darkBorder/50">
+                        <tr>
+                            <td class="p-3 text-gray-400 font-bold bg-rog-card/40">建議售價</td>
+                            ${compareList.map(p => `<td class="p-3 text-center font-orbitron font-bold text-rog-red">NT$ ${p.price.toLocaleString()}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 text-gray-400 font-bold bg-rog-card/40">軸體類型</td>
+                            ${compareList.map(p => `<td class="p-3 text-center text-gray-200">${p.switchName}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 text-gray-400 font-bold bg-rog-card/40">尺寸配置 Layout</td>
+                            ${compareList.map(p => `<td class="p-3 text-center text-gray-200 font-bold">${p.layout}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 text-gray-400 font-bold bg-rog-card/40">連線方式</td>
+                            ${compareList.map(p => `<td class="p-3 text-center text-gray-200">${p.connectivity}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 text-gray-400 font-bold bg-rog-card/40">熱插拔 (Hot-Swap)</td>
+                            ${compareList.map(p => `<td class="p-3 text-center">${p.hotSwap ? '✅ 支援' : '❌ 不支援'}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 text-gray-400 font-bold bg-rog-card/40">核心特色標籤</td>
+                            ${compareList.map(p => `<td class="p-3 text-center text-xs text-gray-300">${p.tags.join(' / ')}</td>`).join('')}
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+        }
+    </script>
+</body>
+</html>
